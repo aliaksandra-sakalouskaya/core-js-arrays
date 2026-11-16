@@ -437,8 +437,11 @@ function getIdentityMatrix(/* n */) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  return numbers.reduce((previousValue, currentValue, index) => {
+    if (currentValue % 2 !== 0) previousValue.push(index);
+    return previousValue;
+  }, []);
 }
 
 /**
@@ -471,9 +474,27 @@ function getHexRGBValues(arr) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  const result = [];
+
+  if (!arr.length) return result;
+
+  function insideMax(numbers) {
+    if (numbers.length === n) {
+      return numbers;
+    }
+
+    const maxNumber = Math.max(...arr);
+    const indexOfMax = arr.indexOf(maxNumber);
+    arr.splice(indexOfMax, 1);
+    numbers.push(maxNumber);
+    return insideMax(numbers);
+  }
+
+  return insideMax(result);
 }
+
+//
 
 /**
  * Finds and returns an array containing only the common elements found in two arrays.
@@ -487,8 +508,8 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  return arr1.filter((item) => arr2.includes(item));
 }
 
 /**
@@ -520,8 +541,12 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.reduce((previousValue, currentValue, index) => {
+    const newArray = Array.from({ length: index + 1 }, () => currentValue);
+    previousValue.push(...newArray);
+    return previousValue;
+  }, []);
 }
 
 /**
